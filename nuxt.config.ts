@@ -1,4 +1,6 @@
-export default {
+import { Configuration } from '@nuxt/types'
+
+const config: Configuration = {
   mode: 'spa',
   /*
    ** Headers of the page
@@ -23,7 +25,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@/assets/scss/main.scss'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -33,7 +35,9 @@ export default {
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxt/typescript-build',
+    'nuxt-typed-vuex'
   ],
   /*
    ** Nuxt.js modules
@@ -50,13 +54,11 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {},
-  /*
-   ** Build configuration
-   */
-  build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {}
+  typescript: {
+    typeCheck: {
+      eslint: true
+    }
   }
 }
+
+export default config
