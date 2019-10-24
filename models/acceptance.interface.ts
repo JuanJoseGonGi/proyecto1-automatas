@@ -1,0 +1,3 @@
+interface Acceptance {
+  states: number[]
+}

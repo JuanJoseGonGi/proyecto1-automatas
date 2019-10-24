@@ -1,3 +1,4 @@
 export default () => ({
-  travelers: [] as Traveler[]
+  travelers: [] as Traveler[],
+  acceptances: [] as Acceptance[]
 })

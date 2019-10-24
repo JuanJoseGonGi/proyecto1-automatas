@@ -19,10 +19,29 @@ export default mutationTree(state, {
     }
 
     state.travelers.push({ ...defaultTraveler })
+
+    state.acceptances = [
+      ...state.acceptances.map((acceptance) => {
+        return {
+          ...acceptance,
+          states: [...acceptance.states, 0]
+        } as Acceptance
+      })
+    ]
   },
+
   deleteTraveler(state, index) {
     state.travelers.splice(index, 1)
+
+    state.acceptances = [
+      ...state.acceptances.map((acceptance) => {
+        acceptance.states.splice(index, 1)
+
+        return acceptance
+      })
+    ]
   },
+
   updateTravelerName(
     state,
     { index, newValue }: { index: number; newValue: string }
@@ -75,5 +94,18 @@ export default mutationTree(state, {
         return traveler
       })
     ]
+  },
+
+  addAcceptance(state) {
+    for (let index = 0; index < state.acceptances.length; index++) {
+      const acceptance = state.acceptances[index]
+
+      if (acceptance.states.every((state) => state == 0)) {
+        return
+      }
+    }
+
+    const acceptance = { states: state.travelers.map(() => 0) }
+    state.acceptances.push(acceptance)
   }
 })
