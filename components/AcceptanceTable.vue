@@ -1,5 +1,5 @@
 <template>
-  <table v-if="travelers.length > 1" class="table is-striped is-fullwidth">
+  <table class="table is-striped is-fullwidth">
     <thead>
       <tr>
         <th

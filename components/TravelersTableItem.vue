@@ -47,13 +47,11 @@ export default class TravelersTableItem extends Vue {
   }
 
   set min(newMin) {
-    const index = this.index
-
     if (this.initialState < newMin) {
       this.initialState = newMin
     }
 
-    this.$accessor.updateTravelerMin({ index, min: newMin })
+    this.$accessor.updateTravelerMin({ index: this.index, min: newMin })
   }
 
   get max() {
@@ -61,13 +59,11 @@ export default class TravelersTableItem extends Vue {
   }
 
   set max(newMax) {
-    const index = this.index
-
     if (this.initialState > newMax) {
       this.initialState = newMax
     }
 
-    this.$accessor.updateTravelerMax({ index, max: newMax })
+    this.$accessor.updateTravelerMax({ index: this.index, max: newMax })
   }
 
   get initialState() {
@@ -102,10 +98,8 @@ export default class TravelersTableItem extends Vue {
       return
     }
 
-    const index = this.index
-
     this.$accessor.updateTravelerName({
-      index,
+      index: this.index,
       newValue
     })
   }

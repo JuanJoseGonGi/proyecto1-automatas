@@ -33,79 +33,93 @@ export default mutationTree(state, {
   deleteTraveler(state, index) {
     state.travelers.splice(index, 1)
 
-    state.acceptances = [
-      ...state.acceptances.map((acceptance) => {
-        acceptance.states.splice(index, 1)
+    state.acceptances = state.acceptances.map((acceptance) => {
+      acceptance.states.splice(index, 1)
 
-        return acceptance
-      })
-    ]
+      return acceptance
+    })
   },
 
   updateTravelerName(
     state,
     { index, newValue }: { index: number; newValue: string }
   ) {
-    state.travelers = [
-      ...state.travelers.map((traveler, travelerIndex) => {
-        if (travelerIndex === index) {
-          return { ...traveler, name: newValue }
-        }
+    state.travelers = state.travelers.map((traveler, travelerIndex) => {
+      if (travelerIndex === index) {
+        return { ...traveler, name: newValue }
+      }
 
-        return traveler
-      })
-    ]
+      return traveler
+    })
   },
 
   updateTravelerMin(state, { index, min }: { index: number; min: number }) {
-    state.travelers = [
-      ...state.travelers.map((traveler, travelerIndex) => {
-        if (travelerIndex === index) {
-          return { ...traveler, min }
-        }
+    state.travelers = state.travelers.map((traveler, travelerIndex) => {
+      if (travelerIndex === index) {
+        return { ...traveler, min }
+      }
 
-        return traveler
-      })
-    ]
+      return traveler
+    })
   },
 
   updateTravelerMax(state, { index, max }: { index: number; max: number }) {
-    state.travelers = [
-      ...state.travelers.map((traveler, travelerIndex) => {
-        if (travelerIndex === index) {
-          return { ...traveler, max }
-        }
+    state.travelers = state.travelers.map((traveler, travelerIndex) => {
+      if (travelerIndex === index) {
+        return { ...traveler, max }
+      }
 
-        return traveler
-      })
-    ]
+      return traveler
+    })
   },
 
   updateTravelerInitialState(
     state,
     { index, initialState }: { index: number; initialState: number }
   ) {
-    state.travelers = [
-      ...state.travelers.map((traveler, travelerIndex) => {
-        if (travelerIndex === index) {
-          return { ...traveler, initialState }
-        }
+    state.travelers = state.travelers.map((traveler, travelerIndex) => {
+      if (travelerIndex === index) {
+        return { ...traveler, initialState }
+      }
 
-        return traveler
-      })
-    ]
+      return traveler
+    })
   },
 
   addAcceptance(state) {
+    if (!state.travelers.length) {
+      return
+    }
+
     for (let index = 0; index < state.acceptances.length; index++) {
       const acceptance = state.acceptances[index]
 
-      if (acceptance.states.every((state) => state == 0)) {
+      if (acceptance.states.every((state) => state === 0)) {
         return
       }
     }
 
     const acceptance = { states: state.travelers.map(() => 0) }
     state.acceptances.push(acceptance)
+  },
+
+  updateAcceptanceState(
+    state,
+    {
+      acceptanceIndex,
+      stateIndex,
+      newState
+    }: { acceptanceIndex: number; stateIndex: number; newState: number }
+  ) {
+    const stateAcceptance = state.acceptances[acceptanceIndex]
+
+    const newAcceptance = {
+      ...stateAcceptance,
+      states: [...stateAcceptance.states]
+    }
+
+    newAcceptance.states.splice(stateIndex, 1, newState)
+
+    state.acceptances.splice(acceptanceIndex, 1, newAcceptance)
   }
 })

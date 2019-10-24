@@ -1,6 +1,11 @@
 <template>
   <div class="container">
     <b-navbar>
+      <template slot="brand">
+        <h1 class="title">
+          Cross the river
+        </h1>
+      </template>
       <template slot="end">
         <b-navbar-item v-for="(item, key) of items" :key="key">
           <nuxt-link :to="item.to" exact-active-class="is-active">
@@ -31,3 +36,9 @@ import { Vue, Component } from 'nuxt-property-decorator'
 })
 export default class DefaultLayout extends Vue {}
 </script>
+
+<style scoped>
+.navbar-brand .title {
+  margin: 0;
+}
+</style>
